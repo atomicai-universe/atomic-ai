@@ -1,0 +1,343 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1.1 Implement `OAuthProvider`, `OAUTH_PROVIDERS`, `is_oauth_family`, `lookup`": [
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789133709977
+      },
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789133720210
+      },
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789133949534
+      }
+    ],
+    "1.2 Write property tests for registry invariants and classification": [
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789133710027
+      },
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789133956028
+      },
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789134196794
+      }
+    ],
+    "2.1 Build the authorization URL, mint PKCE/state, store the Redis flow record": [
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789133710073
+      },
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789133957258
+      },
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789134198163
+      }
+    ],
+    "2.2 Write property tests for authorization-URL construction and flow record": [
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789133710130
+      },
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789134204155
+      },
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789134917983
+      }
+    ],
+    "3.1 Single-use state validation + provider-match guard": [
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789133710177
+      },
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789134205556
+      },
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789134919740
+      }
+    ],
+    "3.2 Server-to-server code exchange via injected fake HTTP client": [
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789133710222
+      },
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789134930545
+      },
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789135198855
+      }
+    ],
+    "3.3 Require refresh token, persist tokens in place, activate, scrub secrets": [
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789133710277
+      },
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789135204528
+      },
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789135555369
+      }
+    ],
+    "3.4 Write property + example tests for complete_authorize (fake client)": [
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789133710337
+      },
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789135560799
+      }
+    ],
+    "4. Checkpoint — service layer green": [
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789133710393
+      },
+      {
+        "executionId": "58ba3648-15fb-4d01-bef5-b7444b33fd96",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789136901219
+      },
+      {
+        "executionId": "58ba3648-15fb-4d01-bef5-b7444b33fd96",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789136973968
+      }
+    ],
+    "5.1 Implement authorize + callback routes": [
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789133710436
+      },
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789135562013
+      }
+    ],
+    "5.2 Register the router in `main.py`": [
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789133710477
+      },
+      {
+        "executionId": "58ba3648-15fb-4d01-bef5-b7444b33fd96",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789135963380
+      },
+      {
+        "executionId": "58ba3648-15fb-4d01-bef5-b7444b33fd96",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789136154094
+      }
+    ],
+    "5.3 Write router tests (session/tenancy/RBAC + callback redirects)": [
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789133710521
+      },
+      {
+        "executionId": "58ba3648-15fb-4d01-bef5-b7444b33fd96",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789136160575
+      },
+      {
+        "executionId": "58ba3648-15fb-4d01-bef5-b7444b33fd96",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789136890030
+      }
+    ],
+    "6. Checkpoint — backend end-to-end green": [
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789133710563
+      },
+      {
+        "executionId": "58ba3648-15fb-4d01-bef5-b7444b33fd96",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789136979817
+      },
+      {
+        "executionId": "58ba3648-15fb-4d01-bef5-b7444b33fd96",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789137080473
+      }
+    ],
+    "7.1 Create `oauth-providers.ts` and keep it in sync with the backend": [
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789133710611
+      },
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789133958203
+      },
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789134199077
+      }
+    ],
+    "7.2 Add a backend parity test for the frontend OAuth-family list": [
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789133710646
+      },
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789134206470
+      },
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789134918722
+      }
+    ],
+    "8.1 Update the integrations page for OAuth-family providers": [
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789133710694
+      },
+      {
+        "executionId": "58ba3648-15fb-4d01-bef5-b7444b33fd96",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789135964195
+      },
+      {
+        "executionId": "58ba3648-15fb-4d01-bef5-b7444b33fd96",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789136154998
+      }
+    ],
+    "8.2 Verify frontend types and production build": [
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789133710731
+      },
+      {
+        "executionId": "58ba3648-15fb-4d01-bef5-b7444b33fd96",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789136161219
+      },
+      {
+        "executionId": "58ba3648-15fb-4d01-bef5-b7444b33fd96",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789136889031
+      }
+    ],
+    "9. Final checkpoint — full-suite regression and Docker rebuild": [
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789133710827
+      },
+      {
+        "executionId": "58ba3648-15fb-4d01-bef5-b7444b33fd96",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789137085354
+      },
+      {
+        "executionId": "58ba3648-15fb-4d01-bef5-b7444b33fd96",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789137254367
+      }
+    ],
+    "1. Build the OAuth provider registry (pure data + helpers)": [
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789134196852
+      }
+    ],
+    "2. Implement `IntegrationOAuthService.begin_authorize`": [
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789134918040
+      }
+    ],
+    "7. Add the frontend OAuth-family classifier with backend parity": [
+      {
+        "executionId": "4bb33d3d-7e1c-4860-9726-82db13e9893e",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789134918793
+      }
+    ],
+    "8. Implement the frontend authorize experience": [
+      {
+        "executionId": "58ba3648-15fb-4d01-bef5-b7444b33fd96",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789136889088
+      }
+    ],
+    "3. Implement `IntegrationOAuthService.complete_authorize`": [
+      {
+        "executionId": "58ba3648-15fb-4d01-bef5-b7444b33fd96",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789137271702
+      }
+    ],
+    "5. Wire the `integrations_oauth` router and register it": [
+      {
+        "executionId": "58ba3648-15fb-4d01-bef5-b7444b33fd96",
+        "chatSessionId": "sess_b5b1811d-10f3-4bde-90fa-5a3b3cd1af73",
+        "timestamp": 1789137272691
+      }
+    ]
+  }
+}

@@ -1,0 +1,72 @@
+# =============================================================================
+# Secrets / local env — NEVER commit
+# =============================================================================
+# Environment files (keep the example checked in).
+.env
+.env.*
+!.env.example
+
+# Downloaded OAuth client secret files (Google, etc.).
+client_secret_*.json
+*credentials*.json
+*client_secret*.json
+
+# Cloud / API credential material.
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa*
+.aws/
+aws.json
+service-account*.json
+gha-creds-*.json
+
+# =============================================================================
+# Python
+# =============================================================================
+__pycache__/
+*.py[cod]
+.venv/
+backend/.venv/
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+backend/.hypothesis/
+
+# =============================================================================
+# Node / Next.js
+# =============================================================================
+node_modules/
+frontend/.next/
+frontend/out/
+frontend/node_modules/
+npm-debug.log*
+
+# =============================================================================
+# Kiro — ignore local machine state, but KEEP specs and steering checked in
+# =============================================================================
+.kiro/**/*.log
+.kiro/cache/
+# (Do NOT ignore all of .kiro — specs and steering are worth versioning.)
+
+# =============================================================================
+# OS / editor
+# =============================================================================
+.DS_Store
+.idea/
+*.swp
+
+# =============================================================================
+# Docker local context
+# =============================================================================
+.docker/
+
+# =============================================================================
+# Markdown docs — internal working notes are not committed to the public repo
+# (node_modules is already ignored above). Remove/override entries here if a
+# specific doc should be published.
+# =============================================================================
+*.md

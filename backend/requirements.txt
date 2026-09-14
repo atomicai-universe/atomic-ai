@@ -1,0 +1,52 @@
+# Atomic AI backend dependencies.
+#
+# Versions are pinned for reproducible container builds (Req 19.5). Uvicorn is
+# pinned exactly to the version mandated by the design (0.52.4). All other pins
+# reflect the resolved, installed, conflict-free versions in the project venv
+# (verified with `pip check`).
+
+# --- ASGI server (pinned exactly per Req 19.5) ---------------------------------
+uvicorn[standard]==0.52.4
+
+# --- Web framework and settings ------------------------------------------------
+fastapi==0.141.1
+pydantic==2.13.5
+pydantic-settings==2.15.0
+
+# --- Database: SQLAlchemy 2.0 async ORM + Alembic + Postgres driver ------------
+SQLAlchemy[asyncio]==2.0.52
+alembic==1.17.1
+asyncpg==0.31.0
+
+# --- Redis client and ARQ job queue --------------------------------------------
+redis==5.3.1
+arq==0.28.0
+
+# --- Strands Agents SDK and MCP client -----------------------------------------
+strands-agents==1.54.0
+strands-agents-tools==0.8.8
+mcp==1.30.0
+
+# --- Nova Sonic bidirectional streaming (voice/accessibility feature) ----------
+# Strands' BidiNovaSonicModel imports the experimental Amazon Bedrock bidi SDK
+# and the smithy AWS core (SigV4 + event-stream); these are NOT bundled with
+# strands-agents, so they must be installed explicitly for voice to work.
+aws-sdk-bedrock-runtime==0.11.0
+smithy-aws-core==0.11.0
+# awscrt provides the AWS Common Runtime HTTP client the bidi stream uses.
+awscrt==0.36.3
+
+# --- Cryptography for the Encryption_Service -----------------------------------
+cryptography==50.0.1
+
+# --- WebSockets / HTTP client --------------------------------------------------
+websockets==17.1
+httpx==0.28.1
+
+# --- Testing: unit + property-based --------------------------------------------
+pytest==9.1.1
+pytest-asyncio==1.4.0
+hypothesis==6.167.1
+
+# YAML parsing for compose smoke tests (structural docker-compose.yml assertions).
+PyYAML==6.0.3

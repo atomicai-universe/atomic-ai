@@ -1,0 +1,36 @@
+{
+  "name": "atomic-ai-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Atomic AI workspace and team portal (Next.js 16 App Router).",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start -p 3000",
+    "lint": "next lint",
+    "check-links": "node scripts/check-guide-links.mjs",
+    "test": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/oauth-field-visibility.test.mjs && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/voice-playback-continuity.test.mjs && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/voice-actions-navigate.test.mjs && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/voice-approval-actions.test.mjs && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/voice-editor-edit.test.mjs && node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/countries.test.mjs"
+  },
+  "dependencies": {
+    "@tiptap/pm": "^3.31.3",
+    "@tiptap/react": "^3.31.3",
+    "@tiptap/starter-kit": "^3.31.3",
+    "clsx": "^2.1.1",
+    "next": "^16.3.4",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0",
+    "simple-icons": "^16.30.0",
+    "tailwind-merge": "^2.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/react": "^19.0.0",
+    "@types/react-dom": "^19.0.0",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^9.17.0",
+    "eslint-config-next": "^16.3.4",
+    "postcss": "^8.4.49",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.7.2"
+  }
+}

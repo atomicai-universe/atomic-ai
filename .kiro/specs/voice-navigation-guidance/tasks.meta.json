@@ -1,0 +1,215 @@
+{
+  "pbtResults": {},
+  "executionHistory": {
+    "1.1 Create `voice_intent.py` with the pure classifier and guidance builder": [
+      {
+        "executionId": "67293786-652c-45b2-b163-9bccd753fa9c",
+        "chatSessionId": "sess_b72b8b27-ef6d-4d22-9bd9-60dcd1d9e53d",
+        "timestamp": 1789245563347
+      },
+      {
+        "executionId": "67293786-652c-45b2-b163-9bccd753fa9c",
+        "chatSessionId": "sess_b72b8b27-ef6d-4d22-9bd9-60dcd1d9e53d",
+        "timestamp": 1789245580263
+      },
+      {
+        "executionId": "67293786-652c-45b2-b163-9bccd753fa9c",
+        "chatSessionId": "sess_b72b8b27-ef6d-4d22-9bd9-60dcd1d9e53d",
+        "timestamp": 1789245828223
+      }
+    ],
+    "1.2 Unit-test the classifier and guidance builder (property-based where practical)": [
+      {
+        "executionId": "67293786-652c-45b2-b163-9bccd753fa9c",
+        "chatSessionId": "sess_b72b8b27-ef6d-4d22-9bd9-60dcd1d9e53d",
+        "timestamp": 1789245563401
+      },
+      {
+        "executionId": "e78a8ca4-e988-4fc9-aa15-9d68cff6c576",
+        "chatSessionId": "sess_b72b8b27-ef6d-4d22-9bd9-60dcd1d9e53d",
+        "timestamp": 1789246881621
+      },
+      {
+        "executionId": "e78a8ca4-e988-4fc9-aa15-9d68cff6c576",
+        "chatSessionId": "sess_b72b8b27-ef6d-4d22-9bd9-60dcd1d9e53d",
+        "timestamp": 1789250894814
+      }
+    ],
+    "2.1 Consume Intent_Router in `NovaSonicVoiceSession.run()` for deterministic navigation": [
+      {
+        "executionId": "67293786-652c-45b2-b163-9bccd753fa9c",
+        "chatSessionId": "sess_b72b8b27-ef6d-4d22-9bd9-60dcd1d9e53d",
+        "timestamp": 1789245563450
+      },
+      {
+        "executionId": "e78a8ca4-e988-4fc9-aa15-9d68cff6c576",
+        "chatSessionId": "sess_b72b8b27-ef6d-4d22-9bd9-60dcd1d9e53d",
+        "timestamp": 1789250914754
+      },
+      {
+        "executionId": "e78a8ca4-e988-4fc9-aa15-9d68cff6c576",
+        "chatSessionId": "sess_b72b8b27-ef6d-4d22-9bd9-60dcd1d9e53d",
+        "timestamp": 1789251059699
+      }
+    ],
+    "2.2 Add welcome and guidance injection": [
+      {
+        "executionId": "67293786-652c-45b2-b163-9bccd753fa9c",
+        "chatSessionId": "sess_b72b8b27-ef6d-4d22-9bd9-60dcd1d9e53d",
+        "timestamp": 1789245563489
+      },
+      {
+        "executionId": "e78a8ca4-e988-4fc9-aa15-9d68cff6c576",
+        "chatSessionId": "sess_b72b8b27-ef6d-4d22-9bd9-60dcd1d9e53d",
+        "timestamp": 1789251077749
+      },
+      {
+        "executionId": "e78a8ca4-e988-4fc9-aa15-9d68cff6c576",
+        "chatSessionId": "sess_b72b8b27-ef6d-4d22-9bd9-60dcd1d9e53d",
+        "timestamp": 1789251239703
+      }
+    ],
+    "2.3 Extend gateway tests with a fake BidiAgent (no AWS)": [
+      {
+        "executionId": "67293786-652c-45b2-b163-9bccd753fa9c",
+        "chatSessionId": "sess_b72b8b27-ef6d-4d22-9bd9-60dcd1d9e53d",
+        "timestamp": 1789245563520
+      },
+      {
+        "executionId": "e78a8ca4-e988-4fc9-aa15-9d68cff6c576",
+        "chatSessionId": "sess_b72b8b27-ef6d-4d22-9bd9-60dcd1d9e53d",
+        "timestamp": 1789251260084
+      },
+      {
+        "executionId": "e78a8ca4-e988-4fc9-aa15-9d68cff6c576",
+        "chatSessionId": "sess_b72b8b27-ef6d-4d22-9bd9-60dcd1d9e53d",
+        "timestamp": 1789251512977
+      }
+    ],
+    "3.1 Call `send_welcome()` after `{\"type\":\"ready\"}`": [
+      {
+        "executionId": "67293786-652c-45b2-b163-9bccd753fa9c",
+        "chatSessionId": "sess_b72b8b27-ef6d-4d22-9bd9-60dcd1d9e53d",
+        "timestamp": 1789245563553
+      },
+      {
+        "executionId": "e78a8ca4-e988-4fc9-aa15-9d68cff6c576",
+        "chatSessionId": "sess_b72b8b27-ef6d-4d22-9bd9-60dcd1d9e53d",
+        "timestamp": 1789251261239
+      },
+      {
+        "executionId": "e78a8ca4-e988-4fc9-aa15-9d68cff6c576",
+        "chatSessionId": "sess_b72b8b27-ef6d-4d22-9bd9-60dcd1d9e53d",
+        "timestamp": 1789251441110
+      }
+    ],
+    "3.2 Update the router test to assert welcome-on-ready": [
+      {
+        "executionId": "67293786-652c-45b2-b163-9bccd753fa9c",
+        "chatSessionId": "sess_b72b8b27-ef6d-4d22-9bd9-60dcd1d9e53d",
+        "timestamp": 1789245563583
+      },
+      {
+        "executionId": "e78a8ca4-e988-4fc9-aa15-9d68cff6c576",
+        "chatSessionId": "sess_b72b8b27-ef6d-4d22-9bd9-60dcd1d9e53d",
+        "timestamp": 1789251518798
+      },
+      {
+        "executionId": "e78a8ca4-e988-4fc9-aa15-9d68cff6c576",
+        "chatSessionId": "sess_b72b8b27-ef6d-4d22-9bd9-60dcd1d9e53d",
+        "timestamp": 1789251656556
+      }
+    ],
+    "4.1 Coalesce chunks and harden scheduling in `use-voice-session.ts`": [
+      {
+        "executionId": "67293786-652c-45b2-b163-9bccd753fa9c",
+        "chatSessionId": "sess_b72b8b27-ef6d-4d22-9bd9-60dcd1d9e53d",
+        "timestamp": 1789245563617
+      },
+      {
+        "executionId": "67293786-652c-45b2-b163-9bccd753fa9c",
+        "chatSessionId": "sess_b72b8b27-ef6d-4d22-9bd9-60dcd1d9e53d",
+        "timestamp": 1789245581433
+      },
+      {
+        "executionId": "e78a8ca4-e988-4fc9-aa15-9d68cff6c576",
+        "chatSessionId": "sess_b72b8b27-ef6d-4d22-9bd9-60dcd1d9e53d",
+        "timestamp": 1789251058443
+      }
+    ],
+    "4.2 Test playback scheduling continuity": [
+      {
+        "executionId": "67293786-652c-45b2-b163-9bccd753fa9c",
+        "chatSessionId": "sess_b72b8b27-ef6d-4d22-9bd9-60dcd1d9e53d",
+        "timestamp": 1789245563660
+      },
+      {
+        "executionId": "e78a8ca4-e988-4fc9-aa15-9d68cff6c576",
+        "chatSessionId": "sess_b72b8b27-ef6d-4d22-9bd9-60dcd1d9e53d",
+        "timestamp": 1789251078595
+      },
+      {
+        "executionId": "e78a8ca4-e988-4fc9-aa15-9d68cff6c576",
+        "chatSessionId": "sess_b72b8b27-ef6d-4d22-9bd9-60dcd1d9e53d",
+        "timestamp": 1789251240664
+      }
+    ],
+    "5.1 Run the full backend suite and frontend tests; confirm no regressions": [
+      {
+        "executionId": "67293786-652c-45b2-b163-9bccd753fa9c",
+        "chatSessionId": "sess_b72b8b27-ef6d-4d22-9bd9-60dcd1d9e53d",
+        "timestamp": 1789245563706
+      },
+      {
+        "executionId": "e78a8ca4-e988-4fc9-aa15-9d68cff6c576",
+        "chatSessionId": "sess_b72b8b27-ef6d-4d22-9bd9-60dcd1d9e53d",
+        "timestamp": 1789251669721
+      },
+      {
+        "executionId": "e78a8ca4-e988-4fc9-aa15-9d68cff6c576",
+        "chatSessionId": "sess_b72b8b27-ef6d-4d22-9bd9-60dcd1d9e53d",
+        "timestamp": 1789255220547
+      }
+    ],
+    "5.2 Rebuild images and redeploy": [
+      {
+        "executionId": "67293786-652c-45b2-b163-9bccd753fa9c",
+        "chatSessionId": "sess_b72b8b27-ef6d-4d22-9bd9-60dcd1d9e53d",
+        "timestamp": 1789245563747
+      },
+      {
+        "executionId": "e78a8ca4-e988-4fc9-aa15-9d68cff6c576",
+        "chatSessionId": "sess_b72b8b27-ef6d-4d22-9bd9-60dcd1d9e53d",
+        "timestamp": 1789255226938
+      }
+    ],
+    "1. Pure Intent_Router and guidance module": [
+      {
+        "executionId": "e78a8ca4-e988-4fc9-aa15-9d68cff6c576",
+        "chatSessionId": "sess_b72b8b27-ef6d-4d22-9bd9-60dcd1d9e53d",
+        "timestamp": 1789250894887
+      }
+    ],
+    "4. Frontend playback quality (crackle fix)": [
+      {
+        "executionId": "e78a8ca4-e988-4fc9-aa15-9d68cff6c576",
+        "chatSessionId": "sess_b72b8b27-ef6d-4d22-9bd9-60dcd1d9e53d",
+        "timestamp": 1789251240711
+      }
+    ],
+    "2. Gateway wiring: deterministic navigation, welcome, guidance": [
+      {
+        "executionId": "e78a8ca4-e988-4fc9-aa15-9d68cff6c576",
+        "chatSessionId": "sess_b72b8b27-ef6d-4d22-9bd9-60dcd1d9e53d",
+        "timestamp": 1789251513014
+      }
+    ],
+    "3. WebSocket endpoint: speak the welcome on ready": [
+      {
+        "executionId": "e78a8ca4-e988-4fc9-aa15-9d68cff6c576",
+        "chatSessionId": "sess_b72b8b27-ef6d-4d22-9bd9-60dcd1d9e53d",
+        "timestamp": 1789251656607
+      }
+    ]
+  }
+}

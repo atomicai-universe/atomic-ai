@@ -1,0 +1,56 @@
+# Multi-stage build for the Atomic AI FastAPI backend.
+#
+# Base image is pinned to Python 3.14 slim and the server runs Uvicorn 0.52.4
+# (installed via backend/requirements.txt) to satisfy Req 19.5. The build stage
+# compiles/installs dependencies into a virtualenv that is copied into a lean
+# runtime stage, keeping the final image small.
+
+# ---- Stage 1: builder ---------------------------------------------------------
+FROM python:3.14-slim AS builder
+
+# Deterministic, quiet Python; no stale .pyc in the image.
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_NO_CACHE_DIR=1 \
+    PIP_DISABLE_PIP_VERSION_CHECK=1
+
+# Build toolchain needed by native wheels (asyncpg, cryptography, etc.).
+RUN apt-get update \
+    && apt-get install -y --no-install-recommends build-essential gcc \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create an isolated virtualenv we can copy wholesale into the runtime stage.
+RUN python -m venv /opt/venv
+ENV PATH="/opt/venv/bin:${PATH}"
+
+WORKDIR /app
+COPY backend/requirements.txt ./requirements.txt
+RUN pip install --upgrade pip \
+    && pip install -r requirements.txt
+
+# ---- Stage 2: runtime ---------------------------------------------------------
+FROM python:3.14-slim AS runtime
+
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PATH="/opt/venv/bin:${PATH}"
+
+# Copy the pre-built virtualenv from the builder stage.
+COPY --from=builder /opt/venv /opt/venv
+
+WORKDIR /app
+
+# Application code and entrypoint. Alembic config/scripts land here in task 2.2.
+COPY backend/ /app/
+
+# Run as an unprivileged user.
+RUN addgroup --system app \
+    && adduser --system --ingroup app app \
+    && chmod +x /app/entrypoint.sh \
+    && chown -R app:app /app
+USER app
+
+EXPOSE 8000
+
+# entrypoint.sh runs `alembic upgrade head` before launching Uvicorn (Req 19.3).
+ENTRYPOINT ["/app/entrypoint.sh"]

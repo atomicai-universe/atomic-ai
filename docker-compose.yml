@@ -1,0 +1,184 @@
+# Atomic AI — full-stack local/cloud deployment (Req 19.1).
+#
+# Brings up four services with pinned images/builds (Req 19.2, 19.5):
+#   - postgres           : postgres:18.6-alpine   (primary datastore)
+#   - redis              : redis:8.10-alpine       (state + ARQ job queue)
+#   - fastapi_backend    : built from Dockerfile.backend (Python 3.14, uvicorn 0.52.4)
+#   - nextjs_frontend    : built from Dockerfile.frontend (Next.js 16)
+#
+# Secrets are supplied via the environment (see .env.example); no real secrets
+# live in this file (Req 18.1, 18.2). `docker compose up --build` boots the
+# whole platform. The backend entrypoint applies migrations before serving
+# traffic (Req 19.3).
+
+services:
+  postgres:
+    image: postgres:18.6-alpine
+    container_name: atomic_ai_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-atomic}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-atomic}
+      POSTGRES_DB: ${POSTGRES_DB:-atomic_ai}
+    volumes:
+      # postgres:18+ stores data under a major-version subdir and expects the
+      # volume mounted at /var/lib/postgresql (not /data). See docker-library/postgres#37.
+      - postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-atomic} -d ${POSTGRES_DB:-atomic_ai}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:8.10-alpine
+    container_name: atomic_ai_redis
+    restart: unless-stopped
+    command: ["redis-server", "--save", "60", "1", "--loglevel", "warning"]
+    volumes:
+      - redis_data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    ports:
+      - "6379:6379"
+
+  fastapi_backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    image: atomic_ai_backend
+    container_name: atomic_ai_backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    environment:
+      # Required secrets and config sourced from the environment (Req 18.1).
+      DATABASE_URL: ${DATABASE_URL}
+      REDIS_URL: ${REDIS_URL}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY}
+      GOOGLE_OAUTH_CLIENT_ID: ${GOOGLE_OAUTH_CLIENT_ID}
+      GOOGLE_OAUTH_CLIENT_SECRET: ${GOOGLE_OAUTH_CLIENT_SECRET}
+      GITHUB_OAUTH_CLIENT_ID: ${GITHUB_OAUTH_CLIENT_ID}
+      GITHUB_OAUTH_CLIENT_SECRET: ${GITHUB_OAUTH_CLIENT_SECRET}
+      # Optional / operational settings (defaults live in config.py).
+      CORS_ALLOW_ORIGINS: ${CORS_ALLOW_ORIGINS:-}
+      MAX_BODY_SIZE_BYTES: ${MAX_BODY_SIZE_BYTES:-1048576}
+      AUTH_RATE_LIMIT_PER_MINUTE: ${AUTH_RATE_LIMIT_PER_MINUTE:-10}
+      ENVIRONMENT: ${ENVIRONMENT:-development}
+      # OAuth redirect wiring (defaults in config.py). Base URL builds the
+      # provider callback; post-login sends the browser back to the frontend.
+      OAUTH_REDIRECT_BASE_URL: ${OAUTH_REDIRECT_BASE_URL:-http://localhost:8000}
+      # Public HTTPS base for INBOUND webhooks only (e.g. ngrok). Empty = falls
+      # back to OAUTH_REDIRECT_BASE_URL. Keeps OAuth on localhost while letting
+      # Gmail Pub/Sub / provider push reach a local dev box.
+      WEBHOOK_PUBLIC_BASE_URL: ${WEBHOOK_PUBLIC_BASE_URL:-}
+      POST_LOGIN_REDIRECT_URL: ${POST_LOGIN_REDIRECT_URL:-/}
+      # Seed values for the default Super_Admin (python -m app.db.seed).
+      SEED_SUPERADMIN_EMAIL: ${SEED_SUPERADMIN_EMAIL:-admin@atomic.local}
+      SEED_SUPERADMIN_NAME: ${SEED_SUPERADMIN_NAME:-Atomic Super Admin}
+      SEED_SUPERADMIN_AUTH_PROVIDER: ${SEED_SUPERADMIN_AUTH_PROVIDER:-google}
+      SEED_WORKSPACE_NAME: ${SEED_WORKSPACE_NAME:-Sample Workspace}
+      # Strands agent model provider (Amazon Bedrock). AWS credentials are
+      # resolved by boto3 from the standard chain; pass them through here so the
+      # backend container can reach Bedrock. Leave unset to use a mounted
+      # profile / instance role instead.
+      AWS_REGION: ${AWS_REGION:-us-west-2}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:-}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:-}
+      AWS_SESSION_TOKEN: ${AWS_SESSION_TOKEN:-}
+      BEDROCK_MODEL_ID: ${BEDROCK_MODEL_ID:-us.anthropic.claude-3-7-sonnet-20250219-v1:0}
+      BEDROCK_STREAMING: ${BEDROCK_STREAMING:-false}
+      GMAIL_PUBSUB_TOPIC: ${GMAIL_PUBSUB_TOPIC:-}
+      # Default 10 min (Bedrock cost-control): a full agent run is only enqueued
+      # when the cheap unread pre-check finds new mail.
+      GMAIL_POLL_MINUTES: ${GMAIL_POLL_MINUTES:-10}
+      # Agent run cost-control: HARD caps on a single agent run (prevents the
+      # runaway multi-million-token inbox runs). See config.py for rationale.
+      AGENT_MAX_TURNS: ${AGENT_MAX_TURNS:-12}
+      AGENT_MAX_TOTAL_TOKENS: ${AGENT_MAX_TOTAL_TOKENS:-200000}
+      AGENT_MAX_OUTPUT_TOKENS: ${AGENT_MAX_OUTPUT_TOKENS:-2048}
+      AGENT_CONVERSATION_WINDOW: ${AGENT_CONVERSATION_WINDOW:-24}
+      POLL_LOCK_TTL_SECONDS: ${POLL_LOCK_TTL_SECONDS:-300}
+      # Batch size: max Gmail messages one agent run may process.
+      GMAIL_MAX_IDS_PER_RUN: ${GMAIL_MAX_IDS_PER_RUN:-5}
+    ports:
+      - "8000:8000"
+
+  arq_worker:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    image: atomic_ai_backend
+    container_name: atomic_ai_worker
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+      fastapi_backend:
+        condition: service_started
+    environment:
+      DATABASE_URL: ${DATABASE_URL}
+      REDIS_URL: ${REDIS_URL}
+      ENCRYPTION_KEY: ${ENCRYPTION_KEY}
+      GOOGLE_OAUTH_CLIENT_ID: ${GOOGLE_OAUTH_CLIENT_ID}
+      GOOGLE_OAUTH_CLIENT_SECRET: ${GOOGLE_OAUTH_CLIENT_SECRET}
+      GITHUB_OAUTH_CLIENT_ID: ${GITHUB_OAUTH_CLIENT_ID}
+      GITHUB_OAUTH_CLIENT_SECRET: ${GITHUB_OAUTH_CLIENT_SECRET}
+      ENVIRONMENT: ${ENVIRONMENT:-development}
+      # Bedrock model provider for the agent loop (same as backend).
+      AWS_REGION: ${AWS_REGION:-us-west-2}
+      AWS_ACCESS_KEY_ID: ${AWS_ACCESS_KEY_ID:-}
+      AWS_SECRET_ACCESS_KEY: ${AWS_SECRET_ACCESS_KEY:-}
+      AWS_SESSION_TOKEN: ${AWS_SESSION_TOKEN:-}
+      BEDROCK_MODEL_ID: ${BEDROCK_MODEL_ID:-us.anthropic.claude-3-7-sonnet-20250219-v1:0}
+      BEDROCK_STREAMING: ${BEDROCK_STREAMING:-false}
+      GMAIL_PUBSUB_TOPIC: ${GMAIL_PUBSUB_TOPIC:-}
+      # Public HTTPS base for INBOUND webhooks only (e.g. ngrok). Empty = falls
+      # back to OAUTH_REDIRECT_BASE_URL. Used by the watch/registration path.
+      WEBHOOK_PUBLIC_BASE_URL: ${WEBHOOK_PUBLIC_BASE_URL:-}
+      # Default 10 min (Bedrock cost-control): a full agent run is only enqueued
+      # when the cheap unread pre-check finds new mail.
+      GMAIL_POLL_MINUTES: ${GMAIL_POLL_MINUTES:-10}
+      # Agent run cost-control: HARD caps on a single agent run (prevents the
+      # runaway multi-million-token inbox runs). See config.py for rationale.
+      AGENT_MAX_TURNS: ${AGENT_MAX_TURNS:-12}
+      AGENT_MAX_TOTAL_TOKENS: ${AGENT_MAX_TOTAL_TOKENS:-200000}
+      AGENT_MAX_OUTPUT_TOKENS: ${AGENT_MAX_OUTPUT_TOKENS:-2048}
+      AGENT_CONVERSATION_WINDOW: ${AGENT_CONVERSATION_WINDOW:-24}
+      POLL_LOCK_TTL_SECONDS: ${POLL_LOCK_TTL_SECONDS:-300}
+      # Batch size: max Gmail messages one agent run may process.
+      GMAIL_MAX_IDS_PER_RUN: ${GMAIL_MAX_IDS_PER_RUN:-5}
+    # Run the ARQ worker (registers process_webhook + run_scheduled_agent).
+    # Override the migrate-then-serve entrypoint: the backend already migrates.
+    entrypoint: []
+    command: ["arq", "app.agents.tasks.WorkerSettings"]
+
+  nextjs_frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    image: atomic_ai_frontend
+    container_name: atomic_ai_frontend
+    restart: unless-stopped
+    depends_on:
+      - fastapi_backend
+    environment:
+      NODE_ENV: ${ENVIRONMENT:-development}
+      # Base URL the browser/frontend uses to reach the backend API.
+      NEXT_PUBLIC_API_BASE_URL: ${NEXT_PUBLIC_API_BASE_URL:-http://localhost:8000}
+    ports:
+      - "3000:3000"
+
+volumes:
+  postgres_data:
+  redis_data:

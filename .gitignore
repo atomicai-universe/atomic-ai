@@ -66,7 +66,8 @@ npm-debug.log*
 
 # =============================================================================
 # Markdown docs — internal working notes are not committed to the public repo
-# (node_modules is already ignored above). Remove/override entries here if a
-# specific doc should be published.
+# (node_modules is already ignored above). Public docs are re-included below.
 # =============================================================================
 *.md
+!README.md
+!docs/blog-agents-for-humans.md
